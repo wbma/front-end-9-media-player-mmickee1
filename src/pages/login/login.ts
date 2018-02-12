@@ -23,8 +23,7 @@ export class LoginPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
     if (localStorage.getItem('token') != null) {
-      this.mediaProvider.getUserData('content.of.tokenstring').subscribe(response => {
-        // this.mediaProvider.getUserData('token').subscribe(response => {
+      this.mediaProvider.getUserData('token').subscribe(response => {
         // console.log('Welcome ' + response['full_name']);
         console.log('Welcome ' + response['username']);
         this.navCtrl.push('homepage');

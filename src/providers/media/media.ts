@@ -2,8 +2,6 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {User} from "../../app/user";
-import {NavController, NavParams} from "ionic-angular";
-
 
 /*
   Generated class for the MediaProvider provider.
@@ -42,10 +40,7 @@ export class MediaProvider {
       username: this.username,
       password: this.password,
     };
-    const settings = {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-    };
-    this.http.post(this.loginUrl, body, settings).subscribe(response => {
+    this.http.post(this.loginUrl, body).subscribe(response => {
       console.log(response['token']);
       localStorage.setItem('token', response['token']);
       // this.navCtrl.push('front');
@@ -65,5 +60,4 @@ export class MediaProvider {
     };
     return this.http.post(this.mediaUrl, file, settings);
   }
-
 }

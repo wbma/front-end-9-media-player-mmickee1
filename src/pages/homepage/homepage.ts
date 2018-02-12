@@ -21,16 +21,16 @@ export class HomepagePage {
   }
 
   MediaFiles: any;
-  file: File;
 
 
   ionViewDidLoad() {
-    this.mediaProvider.getUserData('content.of.tokenstring').subscribe(response => {
-      // console.log('Welcome ' + response['full_name']);
+    // this.mediaProvider.getUserData('content.of.tokenstring').subscribe(response => {
+    this.mediaProvider.getUserData('token').subscribe(response => {
+      console.log('Welcome ' + response['full_name']);
       this.displayImages();
     }, (error: HttpErrorResponse) => {
       console.log(error);
-      // this.navCtrl.push('login');
+     // this.navCtrl.push('login');
     });
   }
 
