@@ -22,14 +22,13 @@
   <p>
     Login Please!
   </p>
+  <form (submit)="login()">
+    <input [(ngModel)]="user.username" placeholder="Username" type="text" name="username">
+    <br>
+    <input [(ngModel)]="user.password" placeholder="Password" type="password" name="password">
+    <br>
+    <button type="submit">Login</button>
 
-  <input [(ngModel)]="mediaProvider.username" placeholder="Username">
-  <br>
-  <input [(ngModel)]="mediaProvider.password" placeholder="Password" type="password">
-  <br>
-  <button (click)="mediaProvider.login()">Login</button>
-
-  {{ mediaProvider.status }}
-
+  </form>
 
 </ion-content>

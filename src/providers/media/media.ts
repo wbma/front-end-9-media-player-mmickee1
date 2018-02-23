@@ -1,6 +1,5 @@
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs/Observable";
 import {User} from "../../app/user";
 
 /*
@@ -12,46 +11,53 @@ import {User} from "../../app/user";
 @Injectable()
 export class MediaProvider {
 
-  username: string;
-  password: string;
-  status: string;
+  logged = false;
 
   loginUrl = 'http://media.mw.metropolia.fi/wbma/login';
   apiUrl = 'http://media.mw.metropolia.fi/wbma';
   mediaUrl = 'http://media.mw.metropolia.fi/wbma/media';
+  uploadUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
+  favouriteUrl = 'http://media.mw.metropolia.fi/wbma/favourites/';
+
 
   constructor(public http: HttpClient) {
     console.log('Hello MediaProvider Provider');
   }
 
-  public getUserData(token: string): Observable<User> {
-    const headers = new HttpHeaders().set('x-access-token', token);
+  public getUserData() {
+    const headers = new HttpHeaders().set('x-access-token', localStorage.getItem('token'));
     return this.http.get<User>(this.apiUrl + '/users/user', {headers: headers});
   }
 
-  public getNewFiles() {
-    return this.http.get(this.mediaUrl);
+  public static removeUserData() {
+    localStorage.removeItem('token');
   }
 
-  public login() {
-    console.log('uname: ' + this.username);
-    console.log('pwd: ' + this.password);
-    const body = {
-      username: this.username,
-      password: this.password,
+  public getNewFiles() {
+    const settings = {
+      headers: new HttpHeaders().set('x-access-token',
+        localStorage.getItem('token'))
     };
-    this.http.post(this.loginUrl, body).subscribe(response => {
-      console.log(response['token']);
-      localStorage.setItem('token', response['token']);
-      // this.navCtrl.push('front');
-    }, (error: HttpErrorResponse) => {
-      console.log(error.error.message);
-      this.status = error.error.message;
-    });
+    return this.http.get(this.mediaUrl, settings);
+  }
+
+  public getOneFile(id) {
+    const settings = {
+      headers: new HttpHeaders().set('x-access-token',
+        localStorage.getItem('token'))
+    };
+    return this.http.get<Array<string>>(this.mediaUrl + '/' + id, settings);
   }
 
   public register(user) {
     return this.http.post(this.apiUrl + '/users', user);
+  }
+
+  public login(user) {
+    const settings = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+    };
+    return this.http.post(this.loginUrl, user, settings);
   }
 
   public uploading(file) {
@@ -59,5 +65,9 @@ export class MediaProvider {
       headers: new HttpHeaders().set('x-access-token', localStorage.getItem('token')),
     };
     return this.http.post(this.mediaUrl, file, settings);
+  }
+
+  public favouritesByFileId(id) {
+    return this.http.get(this.favouriteUrl + 'file/' + id);
   }
 }

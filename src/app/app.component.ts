@@ -9,7 +9,7 @@ import {RegisterPage} from "../pages/register/register";
 import {ProfilePage} from "../pages/profile/profile";
 import {Upload0Page} from "../pages/upload/upload";
 import {HomepagePage} from "../pages/homepage/homepage";
-
+import {MediaplayerPage} from "../pages/mediaplayer/mediaplayer";
 
 @Component({
   templateUrl: 'app.html'
@@ -32,7 +32,7 @@ export class MyApp {
       {title: 'Register', component: RegisterPage},
       {title: 'Profile', component: ProfilePage},
       {title: 'Upload', component: Upload0Page},
-
+      {title: 'MediaPlayer', component: MediaplayerPage},
     ];
 
   }

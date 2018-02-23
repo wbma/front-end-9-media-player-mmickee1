@@ -15,9 +15,12 @@ import {ProfilePage} from "../pages/profile/profile";
 import {Upload0Page} from "../pages/upload/upload";
 import {HttpClientModule} from "@angular/common/http";
 import {HomepagePage} from "../pages/homepage/homepage";
-import {ThumbnailPipe} from "../pipes/thumbnail/thumbnail";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
+import {PipesModule} from "../pipes/pipes.module";
+import {MediaplayerPage} from "../pages/mediaplayer/mediaplayer";
+import {PhotoViewer} from '@ionic-native/photo-viewer';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +32,7 @@ import {HttpModule} from "@angular/http";
     RegisterPage,
     ProfilePage,
     Upload0Page,
-    ThumbnailPipe
+    MediaplayerPage,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ import {HttpModule} from "@angular/http";
     IonicModule.forRoot(MyApp),
     FormsModule,
     HttpModule,
+    PipesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -48,13 +52,16 @@ import {HttpModule} from "@angular/http";
     RegisterPage,
     ProfilePage,
     Upload0Page,
+    MediaplayerPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     MediaProvider,
-    HttpClientModule
+    HttpClientModule,
+    PhotoViewer,
+
   ]
 })
 export class AppModule {

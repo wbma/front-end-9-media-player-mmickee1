@@ -23,8 +23,14 @@ export class Upload0Page {
 
   file: File;
   media: Media = {
+    file_id: 0,
+    filename: '',
     title: '',
     description: '',
+    user_id: 0,
+    media_type: '',
+    mime_type: '',
+    time_added: ''
   };
 
 
